@@ -4,12 +4,14 @@ class Population {
     popSize;
     food;
     matingPool;
+    wall;
 
-    constructor(lifeSpan, newPopulation) {
+    constructor(lifeSpan, popSize, newPopulation) {
 
         this.flies = [];
-        this.popSize = 500;
+        this.popSize = popSize;
         this.food = new Food(width / 2, 50, 20);
+        this.wall = new Wall(width/2, height - height/3, 300, 30)
         this.matingPool = [];
 
         if (newPopulation === undefined) {
@@ -22,18 +24,24 @@ class Population {
     }
 
     evaluate() {
-        var matingPool = [];
-        var totalFit = 0.0;
+
+        var maxFit = 0;
+
         for (var i = 0; i < this.popSize; i++) {
+            
             this.flies[i].calcFitness();
-            totalFit += this.flies[i].fitness;
+
+            if(this.flies[i].fitness > maxFit){
+                maxFit = this.flies[i].fitness;
+            }
         }
 
-        var avg = totalFit / this.flies.length;
+        for(var i = 0; i < this.popSize; i++){
 
-        for (var i = 0; i < this.popSize; i++) {
-            if (this.flies[i].fitness > avg + (avg/5)) {
-                matingPool.push(this.flies[i]);
+            var matingCount = int((this.flies[i].fitness/maxFit).toFixed(4) * 40);
+
+            for(var j = 0; j < matingCount; j++){
+                this.matingPool.push(this.flies[i])
             }
         }
     }
@@ -46,11 +54,11 @@ class Population {
             var newFly = new Fly(lifeSpan, this.food);
 
 
-            var randomA = random(0, this.matingPool.length);
-            var randomB = random(0, this.matingPool.length);
+            var randomA = int(random(0, this.matingPool.length));
+            var randomB = int(random(0, this.matingPool.length));
 
-            var parentA = this.flies[randomA];
-            var parentB = this.flies[randomB];
+            var parentA = this.matingPool[randomA];
+            var parentB = this.matingPool[randomB];
 
             newFly.dna.generateMergedDNA(mutationRate, parentA, parentB);
 
@@ -63,8 +71,9 @@ class Population {
 
     run(count) {
         this.food.show();
+        this.wall.show();
         for (var i = 0; i < this.popSize; i++) {
-            this.flies[i].update(count);
+            this.flies[i].update(count, this.wall);
             this.flies[i].show();
         }
     }

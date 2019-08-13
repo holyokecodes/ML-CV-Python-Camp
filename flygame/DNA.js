@@ -17,23 +17,30 @@ class DNA {
 
     generateMergedDNA(mutationRate, parentA, parentB){
 
-        var p = 0;
         var sequence = [];
+
         for(var i = 0; i < parentA.dna.genes.length; i++){
-            
-            if(p == 0){
-                sequence.push(parentA.dna.genes[i]);
-            }else{
-                sequence.push(parentB.dna.genes[i])
-            }
-            p = !p;
+            var p = int(random())
 
-            var mutValue = random()
+            sequence.push(p ? parentA.dna.genes[i] : parentB.dna.genes[i]);
 
-            if(mutationRate > mutValue){
-                sequence[i] = p5.Vector.random2D();
-                sequence[i].setMag(0.1);
+        }
+
+        var mutCount = 0;
+        for(var i = 0; i < sequence.length; i++){
+
+            var mutate = random()
+
+            if(mutationRate > mutate && mutCount == 0){
+                mutCount = 20;
             }
+
+            if(mutCount > 0){
+                this.sequence = p5.Vector.random2D();
+                this.sequence.setMag(0.1);
+                mutCount--;
+            }
+
         }
 
         this.genes = sequence;
