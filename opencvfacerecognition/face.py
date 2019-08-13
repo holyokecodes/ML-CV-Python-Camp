@@ -6,6 +6,9 @@ cap = cv2.VideoCapture(0)
 cap.set(3, 320)
 cap.set(4, 240)
 
+# Need to use another program/opencv script to get these images
+# Maybe we should collect them all on Monday and preformat them for people to use
+# So everyone has everyones faces
 jacob_image = face_recognition.load_image_file("jacob.jpg")
 jacob_face_encoding = face_recognition.face_encodings(jacob_image)[0]
 
