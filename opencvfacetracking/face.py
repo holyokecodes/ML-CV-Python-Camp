@@ -1,3 +1,4 @@
+# We need to import the python version of the opencv library
 import cv2
 import time
 
@@ -23,7 +24,7 @@ while(True):
     # faces contains a x, y, w, and h for each face detected
     for (x, y, w, h) in faces:
         # We can draw an opencv rectangle with the face locations provided, writing it to our original image
-        cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2) # OpenCV uses BGR instead of RGB
+        cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2) # OpenCV uses BGR instead of RGB, the 2 is the line thickness
 
     # We can show our image in a window called 'Face Tracking'
     cv2.imshow('Face Tracking', img)
