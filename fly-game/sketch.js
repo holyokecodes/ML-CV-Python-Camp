@@ -1,15 +1,13 @@
-var population;
-var food;
-var count;
-var lifeSpan;
-var popSize;
+const lifeSpan = 600;
+const popSize = 500;
+const rewardMultiplier = 10;
+const punishmentDivider = 3;
+const mutationRate = 0.35;
 
 function setup() {
     createCanvas(640, 480)
     count = 0;
-    lifeSpan = 600;
-    popSize = 500;
-    population = new Population(lifeSpan, popSize);
+    population = new Population(lifeSpan, popSize, rewardMultiplier, punishmentDivider);
 }
 
 function draw() {
@@ -19,8 +17,8 @@ function draw() {
 
     if (count == lifeSpan) {
         population.evaluate();
-        var newFlies = population.generateNewPopulation(0.35);
-        population = new Population(lifeSpan, popSize, newFlies);
+        var newFlies = population.generateNewPopulation(mutationRate);
+        population = new Population(lifeSpan, popSize, rewardMultiplier, punishmentDivider, newFlies);
         count = 0;
     }
 }

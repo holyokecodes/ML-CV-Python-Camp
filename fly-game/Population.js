@@ -1,22 +1,18 @@
 class Population {
 
-    flies;
-    popSize;
-    food;
-    matingPool;
-    wall;
-
-    constructor(lifeSpan, popSize, newPopulation) {
+    constructor(lifeSpan, popSize, reward, punishment, newPopulation) {
 
         this.flies = [];
         this.popSize = popSize;
-        this.food = new Food(width / 2, 50, 20);
+        this.food = new Food(width / 2, 50, 30);
         this.wall = new Wall(width/2, height - height/3, 300, 30)
         this.matingPool = [];
+        this.reward = reward;
+        this.punishment = punishment;
 
         if (newPopulation === undefined) {
             for (var i = 0; i < this.popSize; i++) {
-                this.flies[i] = new Fly(lifeSpan, this.food);
+                this.flies[i] = new Fly(lifeSpan, reward, punishment, this.food);
             }
         } else {
             this.flies = newPopulation;
@@ -38,7 +34,7 @@ class Population {
 
         for(var i = 0; i < this.popSize; i++){
 
-            var matingCount = int((this.flies[i].fitness/maxFit).toFixed(4) * 40);
+            var matingCount = int((this.flies[i].fitness/maxFit).toFixed(4) * 40); // MAGIC
 
             for(var j = 0; j < matingCount; j++){
                 this.matingPool.push(this.flies[i])
@@ -51,7 +47,7 @@ class Population {
 
         for (var i = 0; i < this.popSize; i++) {
 
-            var newFly = new Fly(lifeSpan, this.food);
+            var newFly = new Fly(lifeSpan, this.reward, this.punishment, this.food);
 
 
             var randomA = int(random(0, this.matingPool.length));

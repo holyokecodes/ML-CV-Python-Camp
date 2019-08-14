@@ -1,8 +1,5 @@
 class Food {
 
-    pos;
-    radius;
-
     constructor(x, yPos, radius) {
         this.pos = createVector(x, yPos);
         this.radius = radius;

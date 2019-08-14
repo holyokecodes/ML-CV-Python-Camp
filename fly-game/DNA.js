@@ -1,8 +1,5 @@
 class DNA {
 
-    genes;
-    length;
-
     constructor(length) {
 
         this.genes = [];
@@ -32,7 +29,7 @@ class DNA {
             var mutate = random()
 
             if(mutationRate > mutate && mutCount == 0){
-                mutCount = 20;
+                mutCount = 20; // MAGIC
             }
 
             if(mutCount > 0){
