@@ -2,12 +2,14 @@ var population;
 var food;
 var count;
 var lifeSpan;
+var popSize;
 
 function setup() {
     createCanvas(640, 480)
     count = 0;
-    lifeSpan = 200;
-    population = new Population(lifeSpan);
+    lifeSpan = 600;
+    popSize = 500;
+    population = new Population(lifeSpan, popSize);
 }
 
 function draw() {
@@ -17,8 +19,8 @@ function draw() {
 
     if (count == lifeSpan) {
         population.evaluate();
-        var newFlies = population.generateNewPopulation(0.1);
-        population = new Population(lifeSpan, newFlies);
+        var newFlies = population.generateNewPopulation(0.35);
+        population = new Population(lifeSpan, popSize, newFlies);
         count = 0;
     }
 }
