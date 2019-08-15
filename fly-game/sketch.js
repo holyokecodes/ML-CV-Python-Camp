@@ -2,7 +2,7 @@ const LIFE_SPAN = 600; // How many frames should the flies live
 const POP_SIZE = 500; // How many flies should there be
 const REWARD_MULTI = 10; // If they find the food how much should their reward be multiplied
 const PUNISH_DIV = 3; // If they hit something what should their new fraction be 3 = 1/3
-const MUTATION_RATE = 0.35; // What percentage of their genes should be mutated
+const MUTATION_RATE = 0.1; // What percentage of their genes should be mutated
 
 let count = 0; // Set our inital frame counter
 

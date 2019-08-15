@@ -14,6 +14,8 @@ let score = 0;
 
 
 function setup() {
+
+    tf.setBackend('cpu');
     // Optionally use spritesheet images
     let dino_run_frames = loadSpriteSheet('trex-spritesheet.png',
     [

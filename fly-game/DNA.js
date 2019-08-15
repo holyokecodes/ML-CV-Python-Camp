@@ -15,13 +15,13 @@ class DNA {
     }
 
     // Method to generate DNA with two parents
-    generateMergedDNA(mutationRate, parentA, parentB){
+    generateMergedDNA(mutationRate, parentA, parentB) {
 
         // Our empty new sequence of genes
         var sequence = [];
 
         // Loop over the length of the parents dna
-        for(var i = 0; i < parentA.dna.genes.length; i++){
+        for (var i = 0; i < parentA.dna.genes.length; i++) {
 
             // Choose a random parent
             var p = int(random())
@@ -33,10 +33,11 @@ class DNA {
             var shouldMutate = random()
 
             // Check if our mutation rate is larger than the generated rate
-            if(mutationRate > shouldMutate){
+            if (mutationRate > shouldMutate) {
                 // If it is then we mutate by reseting the gene to a random value
-                this.sequence = p5.Vector.random2D();
-                this.sequence.setMag(0.1);
+
+                sequence[i] = p5.Vector.random2D();
+                sequence[i].setMag(0.1);
             }
 
         }
