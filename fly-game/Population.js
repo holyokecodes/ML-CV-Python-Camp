@@ -8,11 +8,12 @@ class Population {
         this.wall = new Wall(width/2, height - height/3, 300, 30)
         this.matingPool = [];
         this.reward = reward;
+        this.lifeSpan = lifeSpan;
         this.punishment = punishment;
 
         if (newPopulation === undefined) {
             for (var i = 0; i < this.popSize; i++) {
-                this.flies[i] = new Fly(lifeSpan, reward, punishment, this.food);
+                this.flies[i] = new Fly(this.lifeSpan, this.reward, this.punishment, this.food);
             }
         } else {
             this.flies = newPopulation;
@@ -47,7 +48,7 @@ class Population {
 
         for (var i = 0; i < this.popSize; i++) {
 
-            var newFly = new Fly(lifeSpan, this.reward, this.punishment, this.food);
+            var newFly = new Fly(this.lifeSpan, this.reward, this.punishment, this.food);
 
 
             var randomA = int(random(0, this.matingPool.length));
