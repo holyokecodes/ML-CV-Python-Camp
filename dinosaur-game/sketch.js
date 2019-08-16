@@ -1,11 +1,12 @@
 
 let dinos = [];
-const DINO_COUNT = 20;
+const DINO_COUNT = 50;
 let ground;
 let cactus;
 var score = 0;
 
 function setup() {
+    tf.setBackend('cpu');
     createCanvas(640, 480);
     ground = new Ground();
     newGeneration();
