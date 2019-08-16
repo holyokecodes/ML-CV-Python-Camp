@@ -16,7 +16,7 @@ class NeuralNetwork {
     }
 
     createModel() {
-        
+        // Unsupervised Dense Neural Network
         const model = tf.sequential();
         const hidden = tf.layers.dense({
             units: this.hiddenNodes,

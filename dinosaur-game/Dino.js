@@ -1,13 +1,13 @@
 class Dino {
 
-    constructor(playerControlled) {
+    constructor(playerControlled, brain) {
         this.pos = createVector(width / 4, height - height / 4 - 25); // Ground Position + half height
         this.vel = createVector();
         this.playerControlled = playerControlled;
         this.isAlive = true;
         this.width = 30;
         this.height = 50;
-        this.brain = new NeuralNetwork(2, 3, 2);
+        this.brain = brain;
         this.score = 0;
     }
 
