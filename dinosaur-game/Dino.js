@@ -69,7 +69,7 @@ class Dino {
         translate(this.pos.x, this.pos.y);
         if (this.playerControlled) {
             fill(100, 0, 0, 100);
-        }else{
+        } else {
             fill(40, 100);
         }
         rectMode(CENTER);

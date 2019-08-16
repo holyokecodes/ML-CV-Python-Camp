@@ -33,7 +33,7 @@ class NeuralNetwork {
         return model;
     }
 
-    dispose(){
+    dispose() {
         this.model.dispose();
     }
 

@@ -48,7 +48,7 @@ function draw() {
         newGeneration();
     }
 
-    if(score > 2000){ // Upper limit so it will continue evolving
+    if (score > 2000) { // Upper limit so it will continue evolving
         newGeneration();
     }
 }
@@ -58,9 +58,12 @@ function firstGeneration() {
     cactus = new Cactus();
     dinos = [];
 
-    for(let i = 0; i < DINO_COUNT; i++){
-        dinos.push(new Dino(false, new NeuralNetwork(2, 3, 2)))
+    for (let i = 0; i < DINO_COUNT; i++) {
+        dinos.push(new Dino(false, new NeuralNetwork(2, 5, 2)))
     }
+
+    // Player Controlled Dino
+    dinos.push(new Dino(true));
 }
 
 function newGeneration() {
@@ -71,7 +74,7 @@ function newGeneration() {
     dinos = selection.createNewGeneration(DINO_COUNT, dinos, 0.25); // I don't think mutation is working
 
     // Player Controlled Dino
-    //dinos.push(new Dino(true));
+    dinos.push(new Dino(true));
 
 }
 
