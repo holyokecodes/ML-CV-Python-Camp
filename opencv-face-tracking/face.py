@@ -15,8 +15,8 @@ time.sleep(1)
 
 # Run our program forever (until q pressed)
 while(True):
-    # We want to read the image from out camera - img is the image frame, ret is retval
-    ret, img = cap.read()
+    # We want to read the image from out camera - img is the image frame, _ can be ignored
+    _, img = cap.read()
     # The classifier was trained on grayscale images we need to convert it to grayscale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # We can apply our classifier to the grayscale image, 1.3 and 5 set the min and max scales we should be looking for a face
