@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6adc8b48dab43d01d8543d4d8c0cde32c97bf61d25012e65bbc8078a1e7539f7"
+            "sha256": "64941ee5bb8dde375e25a05f00cd92991856237c8ef88097fa187818cd8ae615"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -41,6 +41,7 @@
             "hashes": [
                 "sha256:92587c81b0165e933593f505fdf099dface0d0f8ec874b1d8655fc774598911f"
             ],
+            "index": "pypi",
             "version": "==19.17.0"
         },
         "face-recognition": {

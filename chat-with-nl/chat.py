@@ -8,6 +8,13 @@ from sklearn.metrics.pairwise import cosine_similarity
 # Need to learn more about TfidfVectorizer and cosine_similarity before I can comment
 # Can grab raw wikipedia text from http://wikipedia.thetimetube.com/
 
+# Before you can run need to setup wordnet
+#> python
+#> import nltk
+#> nltk.download('punkt')
+#> nltk.download('wordnet')
+#> quit()
+
 f = open('robot.txt', 'r', errors='ignore')
 raw = f.read()
 raw = raw.lower()
