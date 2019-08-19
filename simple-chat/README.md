@@ -98,12 +98,11 @@ def processInput(userInput):
         # Loop through each key we found
         for key in matchingKeys:
             # Provide a number for selection and the prompt for that key we created above.
-            print(str(index) + ": " + prompts[key] + " ")
+            print(str(index) + ": " + prompts[key])
             # Increase the index of the prompts for selection
             index += 1
         # Setup for finding a valid key
         valid = False
-        key = ""
         # While we don't have a valid key we want to continue asking for a proper key
         while not valid:
             # Get the number from the user
