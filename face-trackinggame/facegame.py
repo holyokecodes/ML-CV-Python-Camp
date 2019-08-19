@@ -38,9 +38,9 @@ while(True):
     # Check if we have hit the target, will also run the first time our game opens
     if hitTarget:
         # Choose a new x position, the 640 is our width * 2, and we subtract the width so it doesn't appear offscreen
-        tX = random.randint(tW, 640 - tW)
+        tX = random.randint(tW, 320 - tW)
         # Same goes with y but the 480 is our width * 2
-        tY = random.randint(tW, 480 - tW)
+        tY = random.randint(tW, 240 - tW)
         # And reset if we have hit the target
         hitTarget = False
 
