@@ -8,10 +8,10 @@ verify_ssl = true
 [packages]
 requests = "*"
 opencv-python = "*"
-face-recognition = "*"
 nltk = "*"
 sklearn = "*"
 dlib = "*"
+face-recognition = "*"
 
 [requires]
 python_version = "3.7"
