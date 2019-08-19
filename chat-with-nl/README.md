@@ -72,7 +72,7 @@ def response(user_response):
     # Next bit is very complicated, goal is to find the closest match between what we asked and whats in the text file
     TfidfVec = TfidfVectorizer(tokenizer=LemNormalize) # Used to identify key features of our text
     tfidf = TfidfVec.fit_transform(sent_tokens) # Learn the vocabulary of all our sentences
-    vals = cosine_similarity(tfidf[-1], tfidf) # Find the closest matches to our inital phrase
+    vals = cosine_similarity(tfidf[-1], tfidf) # Find the distances between each value found
     
     # Find the best result
     idx = vals.argsort()[0][-2]
