@@ -1,18 +1,18 @@
 # Chat with Natural Language
 
-We are now going to use natural language to run a chatbot
+We are now going to use natural language processing to run a chatbot.
 
-Natural Language Processing uses a machine learning algorithm to find not keywords, but the backbone behind sentences to find what you should mean.
+The Natural Language Toolkit (nltk) uses a machine learning algorithm to find not keywords, but the backbone behind sentences to understand what you mean.
 
-So we are going to make a new file, call it input.txt
+We are going to make a new file, call it input.txt
 
-In this file we want to paste our wikipedia article
+In this file we want to paste our Wikipedia article
 
 We can get this from http://wikipedia.thetimetube.com/ and search your article
 
 Copy the text into your input.txt file
 
-Then we need to do some setup to get NLTK (natural language toolkit setup)
+Then we need to do some setup to get NLTK setup.
 
 In the console type the following lines:
 ```
@@ -20,7 +20,7 @@ python
 import nltk
 nltk.download('punkt')
 nltk.download('wordnet')
-quit()
+exit()
 ```
 
 And now we can get started with our new chatbot
@@ -33,12 +33,10 @@ import string
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-f = open('robot.txt', 'r', errors='ignore')
-raw = f.read()
-raw = raw.lower()
+f = open('input.txt', 'r')
+raw = f.read().lower()
 
 sent_tokens = nltk.sent_tokenize(raw) # Turns the raw text file into sentence tokens that are searchable by NLTK
-word_tokens = nltk.word_tokenize(raw) # Turns the raw text file into word tokens that are searchable by NLTK
 
 lemmer = nltk.stem.WordNetLemmatizer() # a lemmer will be how we find the base dictionary version of a word
 # using = use
@@ -76,8 +74,7 @@ def response(user_response):
     
     # Find the best result
     idx = vals.argsort()[0][-2]
-    flat = vals.flatten()
-    flat.sort()
+    flat = vals.flatten().sort()
     req_tfidf = flat[-2]
     
     # If there was no results

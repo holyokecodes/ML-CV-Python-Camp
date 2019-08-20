@@ -1,3 +1,5 @@
+# Chatbot that uses Natural Language Toolkit to analyze questions
+# and determine appropriate responses.
 import nltk
 import numpy as np
 import random
@@ -5,7 +7,6 @@ import string
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Need to learn more about TfidfVectorizer and cosine_similarity before I can comment
 # Can grab raw wikipedia text from http://wikipedia.thetimetube.com/
 
 # Before you can run need to setup wordnet
@@ -15,12 +16,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 #> nltk.download('wordnet')
 #> quit()
 
-f = open('robot.txt', 'r', errors='ignore')
-raw = f.read()
-raw = raw.lower()
+f = open('robot.txt', 'r')
+raw = f.read().lower()
 
 sent_tokens = nltk.sent_tokenize(raw)
-word_tokens = nltk.word_tokenize(raw)
 
 lemmer = nltk.stem.WordNetLemmatizer()
 
@@ -54,8 +53,7 @@ def response(user_response):
     tfidf = TfidfVec.fit_transform(sent_tokens)
     vals = cosine_similarity(tfidf[-1], tfidf)
     idx = vals.argsort()[0][-2]
-    flat = vals.flatten()
-    flat.sort()
+    flat = vals.flatten().sort()
     req_tfidf = flat[-2]
     if(req_tfidf == 0):
         bot_response = bot_response+"I am sorry! I don't understand you"
