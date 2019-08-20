@@ -26,84 +26,87 @@ exit()
 And now we can get started with our new chatbot
 
 ```python
+# Chatbot that uses Natural Language Toolkit to analyze questions
+# and determine appropriate responses.
 import nltk
 import numpy as np
 import random
-import string
+import string # for the list of punctation characters
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-f = open('input.txt', 'r')
-raw = f.read().lower()
+# Before you can run need to setup wordnet
+#> python
+#> import nltk
+#> nltk.download('punkt')
+#> nltk.download('wordnet')
+#> quit()
 
-sent_tokens = nltk.sent_tokenize(raw) # Turns the raw text file into sentence tokens that are searchable by NLTK
+# Can grab raw wikipedia text from http://wikipedia.thetimetube.com/
+f = open('robot.txt', 'r')
+raw = f.read()
 
-lemmer = nltk.stem.WordNetLemmatizer() # a lemmer will be how we find the base dictionary version of a word
-# using = use
+sentence_tokens = nltk.sent_tokenize(raw)
 
-# Small function to find the lemma of our tokens
+lemmer = nltk.stem.WordNetLemmatizer()
+
 def LemTokens(tokens):
     return [lemmer.lemmatize(token) for token in tokens]
 
-# We need to rip the punctuation out of the file so we will make a table with the punctuation rules
 remove_punct_dict = dict((ord(punct), None) for punct in string.punctuation)
 
-# Takes our text and applies our punctuation rules
 def LemNormalize(text):
-    return LemTokens(nltk.word_tokenize(text.lower().translate(remove_punct_dict)))
-
+    return LemTokens(nltk.word_tokenize(text.translate(remove_punct_dict)))
 
 GREETING_INPUTS = ("hello", "hi", "greetings", "sup", "what's up", "hey",)
 GREETING_RESPONSES = ["hi", "hey", "*nods*", "hi there",
                       "hello", "I am glad! You are talking to me"]
 
-# Get a random greeting for the user
 def greeting(sentence):
     for word in sentence.split():
         if word.lower() in GREETING_INPUTS:
             return random.choice(GREETING_RESPONSES)
 
-# Generate a response from NLTK
-def response(user_response):
-    bot_response = ''
-    sent_tokens.append(user_response) # Add our input to the sentence tokens
-    # Next bit is very complicated, goal is to find the closest match between what we asked and whats in the text file
-    TfidfVec = TfidfVectorizer(tokenizer=LemNormalize) # Used to identify key features of our text
-    tfidf = TfidfVec.fit_transform(sent_tokens) # Learn the vocabulary of all our sentences
-    vals = cosine_similarity(tfidf[-1], tfidf) # Find the distances between each value found
-    
-    # Find the best result
+def response(user_input):
+    sentence_tokens.append(user_input)
+    TfidfVec = TfidfVectorizer(tokenizer=LemNormalize)
+    tfidf = TfidfVec.fit_transform(sentence_tokens)
+    # Compare all tokens to the last token
+    # Similarity 1 = identical, 0 = no similarity
+    vals = cosine_similarity(tfidf[-1], tfidf)
+    # Get the index of the most similar token
     idx = vals.argsort()[0][-2]
-    flat = vals.flatten().sort()
-    req_tfidf = flat[-2]
-    
-    # If there was no results
-    if(req_tfidf == 0):
-        bot_response = bot_response+"I am sorry! I don't understand you"
-        return bot_response
+    # Get the value of the most similar token
+    # vals is a list inside a list, so flatten it
+    flat = vals.flatten()
+    # Then sort it from lowest to highest
+    flat.sort()
+    # The original question is the last one [-1] with a value of 1
+    # The next best response will be [-2]
+    best_response = flat[-2]
+    # If the value of the most similar token is 0
+    # then we don't know how to respond.
+    if best_response == 0:
+        return "I am sorry! I don't understand you"
     else:
-        # Good result!
-        bot_response = bot_response+sent_tokens[idx]
-        return bot_response
+        return sentence_tokens[idx]
 
-
-flag = True
 print("ROBOTBOT: My name is RobotBot. I will answer your queries about Robots. If you want to exit, type Bye!")
-while(flag == True):
-    user_response = input('USER: ')
-    user_response = user_response.lower()
-    if(user_response != 'bye'):
-        if(user_response == 'thanks' or user_response == 'thank you'):
-            flag = False
-            print("ROBOTBOT: You are welcome..")
+while (True):
+    user_input = input('YOU: ').lower()
+    print("ROBOTBOT: ", end="")
+    if user_input != 'bye':
+        if user_input == 'thanks' or user_input == 'thank you':
+            print("You are welcome..")
+            break
         else:
-            if(greeting(user_response) != None):
-                print("ROBOTBOT: "+greeting(user_response))
+            if greeting(user_input) != None:
+                print(greeting(user_input))
             else:
-                print("ROBOTBOT: ", end="")
-                print(response(user_response))
-                sent_tokens.remove(user_response)
+                print(response(user_input))
+                sentence_tokens.remove(user_input)
     else:
-        flag = False
-        print("ROBOTBOT: Bye! take care..")
+        print("Bye! take care..")
+        break
+
 ```
