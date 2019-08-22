@@ -51,6 +51,20 @@ function draw() {
     if (score > 2000) { // Upper limit so it will continue evolving
         newGeneration();
     }
+
+    if (keyIsDown(DOWN_ARROW)) {
+        for (let i = 0; i < dinos.length; i++) {
+            if (dinos[i].playerControlled) {
+                dinos[i].duck();
+            }
+        }
+    }else{
+        for (let i = 0; i < dinos.length; i++) {
+            if (dinos[i].playerControlled) {
+                dinos[i].unDuck();
+            }
+        }
+    }
 }
 
 function firstGeneration() {
@@ -59,7 +73,7 @@ function firstGeneration() {
     dinos = [];
 
     for (let i = 0; i < DINO_COUNT; i++) {
-        dinos.push(new Dino(false, new NeuralNetwork(2, 5, 2)))
+        dinos.push(new Dino(false, new NeuralNetwork(2, 8, 3)))
     }
 
     // Player Controlled Dino

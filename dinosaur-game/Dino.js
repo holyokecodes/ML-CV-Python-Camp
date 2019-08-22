@@ -1,12 +1,12 @@
 class Dino {
 
     constructor(playerControlled, brain) {
-        this.pos = createVector(width / 4, height - height / 4 - 25); // Ground Position + half height
+        this.width = 30;
+        this.height = 50;
+        this.pos = createVector(width / 4, height - height / 4 - this.height/2); // Ground Position + half height
         this.vel = createVector();
         this.playerControlled = playerControlled;
         this.isAlive = true;
-        this.width = 30;
-        this.height = 50;
         this.brain = brain;
         this.score = 0;
     }
@@ -24,8 +24,8 @@ class Dino {
 
         this.pos.y -= this.vel.y;
 
-        if (this.pos.y >= height - height / 4 - 25) {
-            this.pos.y = height - height / 4 - 25;
+        if (this.pos.y >= height - height / 4 - this.height/2) {
+            this.pos.y = height - height / 4 - this.height/2;
             this.vel.y = 0;
         }
 
@@ -48,18 +48,38 @@ class Dino {
 
         var distancetoCactus = cactus.pos.x - cactus.width / 2 - this.pos.x + this.width / 2
 
-        var action = this.brain.predict([distancetoCactus, cactus.count])
+        var actions = this.brain.predict([distancetoCactus, cactus.count])
 
-        if (action[0] > action[1]) {
+        let choice = actions.indexOf(Math.max(...actions))
+
+        if(choice == 0){
+            // Jump
+            this.unDuck();
             this.jump();
-        } else {
+        }else if(choice == 1){
+            // Duck
+            this.duck();
+        }else{
             // Do Nothing
+            this.unDuck();
         }
     }
 
     jump() {
-        if (this.pos.y == height - height / 4 - 25) {
+        if (this.pos.y == height - height / 4 - this.height/2 && this.height > 25) {
             this.vel.y += 7;
+        }
+    }
+
+    duck() {
+        if (this.pos.y == height - height / 4 - this.height/2) {
+            this.height = 25;
+        }
+    }
+
+    unDuck() {
+        if (this.pos.y == height - height / 4 - this.height/2) {
+            this.height = 50;
         }
     }
 
