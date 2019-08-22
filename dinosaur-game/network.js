@@ -24,6 +24,11 @@ class NeuralNetwork {
             activation: 'sigmoid' // Force between 0 and 1
         });
         model.add(hidden);
+        const hidden2 = tf.layers.dense({
+            units: this.hiddenNodes,
+            activation: 'sigmoid' // Force between 0 and 1
+        });
+        model.add(hidden2);
         const output = tf.layers.dense({
             units: this.outputNodes, // Don't need input shape because it can be infered from the hidden layer
             activation: 'softmax' // Force between 0 and 1, but all nodes must add up to 1 (prob)
