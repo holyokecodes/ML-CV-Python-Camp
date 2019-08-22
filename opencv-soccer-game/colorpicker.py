@@ -14,8 +14,8 @@ def pickColor(event,x,y,flags,param):
 
         upper =  np.array([pixel[0] + 20, pixel[1] + 20, pixel[2] + 40])
         lower =  np.array([pixel[0] - 20, pixel[1] - 20, pixel[2] - 40])
-        print("Lower: " + str(lower))
-        print("Upper: " + str(upper))
+        print("Lower: " + str(list(lower)))
+        print("Upper: " + str(list(upper)))
 
         image_mask = cv2.inRange(imageHSV,lower,upper)
         cv2.imshow("mask",image_mask)
